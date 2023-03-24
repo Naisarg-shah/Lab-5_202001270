@@ -3,30 +3,29 @@ Git Repository for Lab 5
 
 Tool Used MyPy
 
-Errornous Code:
+Errornous code:
 ```
-import imp
-from tkinter import *
-import tkinter.messagebox
-from PIL import Image, ImageTk
-import socket, threading, sys, traceback, os
-from RtpPacket import RtpPacket
-import time 
-CACHE_FILE_NAME = "cache-"
-CACHE_FILE_EXT = ".jpg"
+	INIT = 0
+	READY = 1
+	PLAYING = 2
 ```
-Error Flagged:
+
+Errors Flagged:
 ```
-client.py:4: error: Library stubs not installed for "PIL"  [import]
-client.py:4: note: Hint: "python3 -m pip install types-Pillow"
-client.py:4: note: (or run "mypy --install-types" to install all missing stub packages)
-client.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-client.py:4: error: Name "Image" already defined (possibly by an import)  [no-redef]
-Found 2 errors in 1 file (checked 1 source file)    
+client.py:18:0: W0311: Bad indentation. Found 1 spaces, expected 4 (bad-indentation)
+client.py:19:0: W0311: Bad indentation. Found 1 spaces, expected 4 (bad-indentation)
+client.py:20:0: W0311: Bad indentation. Found 1 spaces, expected 4 (bad-indentation) 
 ```
 
 Analysis:
-Above errors in import are false positives; These errros get flagged because mypy was not able to find the module that was tired to be imported, whether it comes bundled with type hints or not, there are no actual errors as these libraries were imported and used in the program.
+A good practice to use tab (4 whitespaces in code) instead of a Whitespace mypy correctly flags this particular thing. This is not some error that breaks the code; It is just a good programming etiquette that simplifies the codes redability and maike it understandable, helping keep track of braces and what code block belongs to which particular section.
+
+Errors Flagged:
+```
+Unused import(s) sys, enum, types, TclError, re, wantobjects, TkVersion, TclVersion, READABLE, WRITABLE, EXCEPTION, EventType, Event, NoDefaultRoot, Variable, StringVar, IntVar, DoubleVar, BooleanVar, mainloop, getint, getdouble, getboolean, Misc, CallWrapper, XView, YView, Wm, Tk, Tcl, Pack, Place, Grid, BaseWidget, Widget, Toplevel, Canvas, Checkbutton, Entry, Frame, Listbox, Menu, Menubutton, Message, Radiobutton, Scale, Scrollbar, Text, OptionMenu, PhotoImage, BitmapImage, image_names, image_types, Spinbox, LabelFrame, PanedWindow, NO, FALSE, OFF, YES, TRUE, ON, NW, SW, NE, SE, NS, EW, NSEW, CENTER, NONE, X, Y, BOTH, LEFT, TOP, RIGHT, BOTTOM, RAISED, SUNKEN, FLAT, RIDGE, GROOVE, SOLID, HORIZONTAL, VERTICAL, NUMERIC, CHAR, WORD, BASELINE, INSIDE, OUTSIDE, SEL, SEL_FIRST, SEL_LAST, END, INSERT, CURRENT, ANCHOR, ALL, NORMAL, DISABLED, ACTIVE, HIDDEN, CASCADE, CHECKBUTTON, COMMAND, RADIOBUTTON, SEPARATOR, SINGLE, BROWSE, MULTIPLE, EXTENDED, DOTBOX, UNDERLINE, PIESLICE, CHORD, ARC, FIRST, LAST, BUTT, PROJECTING, ROUND, BEVEL, MITER, MOVETO, SCROLL, UNITS and PAGES from wildcard import of tkinter (unused-wildcard-import)
+```
+
+Analysis: It is not a viavle option to import libraries that are not intended to be used, this leads to extraneous memory consumption and high compilation time. The user should import only the required and necessary libraries. However, it is not a critical error but shows good programming etiquette.
 
 Errornous Code:
 ```
@@ -80,26 +79,29 @@ client.py:315:2: C0103: Attribute name "rtpSocket" doesn't conform to snake_case
 Analysis:
 Such errors (Naming style errors) are true positives but its convention depends from programmer to programmer due to the existance of many naming styles like camel case, kebab case, snake case, pascal case. If the programmer has been using a specific naming style since the inception then it does not make sense to later change to snake case style that is specifically expected by mypy in the code.
 
-Errornous code:
-```
-	INIT = 0
-	READY = 1
-	PLAYING = 2
-```
 
-Errors Flagged:
+
+Errornous Code:
 ```
-client.py:18:0: W0311: Bad indentation. Found 1 spaces, expected 4 (bad-indentation)
-client.py:19:0: W0311: Bad indentation. Found 1 spaces, expected 4 (bad-indentation)
-client.py:20:0: W0311: Bad indentation. Found 1 spaces, expected 4 (bad-indentation) 
+import imp
+from tkinter import *
+import tkinter.messagebox
+from PIL import Image, ImageTk
+import socket, threading, sys, traceback, os
+from RtpPacket import RtpPacket
+import time 
+CACHE_FILE_NAME = "cache-"
+CACHE_FILE_EXT = ".jpg"
+```
+Error Flagged:
+```
+client.py:4: error: Library stubs not installed for "PIL"  [import]
+client.py:4: note: Hint: "python3 -m pip install types-Pillow"
+client.py:4: note: (or run "mypy --install-types" to install all missing stub packages)
+client.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+client.py:4: error: Name "Image" already defined (possibly by an import)  [no-redef]
+Found 2 errors in 1 file (checked 1 source file)    
 ```
 
 Analysis:
-A good practice to use tab (4 whitespaces in code) instead of a Whitespace mypy correctly flags this particular thing. This is not some error that breaks the code; It is just a good programming etiquette that simplifies the codes redability and maike it understandable, helping keep track of braces and what code block belongs to which particular section.
-
-Errors Flagged:
-```
-Unused import(s) sys, enum, types, TclError, re, wantobjects, TkVersion, TclVersion, READABLE, WRITABLE, EXCEPTION, EventType, Event, NoDefaultRoot, Variable, StringVar, IntVar, DoubleVar, BooleanVar, mainloop, getint, getdouble, getboolean, Misc, CallWrapper, XView, YView, Wm, Tk, Tcl, Pack, Place, Grid, BaseWidget, Widget, Toplevel, Canvas, Checkbutton, Entry, Frame, Listbox, Menu, Menubutton, Message, Radiobutton, Scale, Scrollbar, Text, OptionMenu, PhotoImage, BitmapImage, image_names, image_types, Spinbox, LabelFrame, PanedWindow, NO, FALSE, OFF, YES, TRUE, ON, NW, SW, NE, SE, NS, EW, NSEW, CENTER, NONE, X, Y, BOTH, LEFT, TOP, RIGHT, BOTTOM, RAISED, SUNKEN, FLAT, RIDGE, GROOVE, SOLID, HORIZONTAL, VERTICAL, NUMERIC, CHAR, WORD, BASELINE, INSIDE, OUTSIDE, SEL, SEL_FIRST, SEL_LAST, END, INSERT, CURRENT, ANCHOR, ALL, NORMAL, DISABLED, ACTIVE, HIDDEN, CASCADE, CHECKBUTTON, COMMAND, RADIOBUTTON, SEPARATOR, SINGLE, BROWSE, MULTIPLE, EXTENDED, DOTBOX, UNDERLINE, PIESLICE, CHORD, ARC, FIRST, LAST, BUTT, PROJECTING, ROUND, BEVEL, MITER, MOVETO, SCROLL, UNITS and PAGES from wildcard import of tkinter (unused-wildcard-import)
-```
-
-Analysis: It is not a viavle option to import libraries that are not intended to be used, this leads to extraneous memory consumption and high compilation time. The user should import only the required and necessary libraries. However, it is not a critical error but shows good programming etiquette.
+Above errors in import are false positives; These errros get flagged because mypy was not able to find the module that was tired to be imported, whether it comes bundled with type hints or not, there are no actual errors as these libraries were imported and used in the program.
